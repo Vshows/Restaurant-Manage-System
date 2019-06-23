@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>提交订单</title>
+
+<link  rel="stylesheet"  href="{% static '/css/bootstrap.css' %}" type="text/css" media="all" />
+<link  rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css" media="all" />
+<!-- font-awesome icons -->
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- //font-awesome icons -->
+<!-- js -->
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script>
+$(document).ready(function () {
+    $('#cancel').click(function (){
+        alert('取消订单成功！')
+        window.location.reload()
+        msg = 1
+        csrf = $('input[name="csrfmiddlewaretoken"]').val()
+        params={
+            'msg':msg,
+            'csrfmiddlewaretoken':csrf,
+        }
+
+        $.post('cancel/',params,function (data) {
+        })
+
+
+        });
+
+    });
+
+</script>
+
+    <script>
+$(document).ready(function () {
+
+    $('#restaurant').click(function (){
+            alert('订单提交成功！')
+            window.location.reload()
+            food_price = $('#total_x').text()
+            csrf = $('input[name="csrfmiddlewaretoken"]').val()
+            params = {
+
+                'food_price':food_price,
+                'msg':0,
+                'csrfmiddlewaretoken':csrf,
+
+            }
+
+            $.post('bill/',params,function (data) {
+            });
+        });
+
+    });
+
+</script>
+
+</head>
+	
+<body>
+<!-- header -->
+{% csrf_token %}
+	<div class="agileits_header">
+		<div class="w3l_offers">
+			<a href="../../glotin">GLOTIN</a>
+		</div>
+
+
+		<div class="account">
+			<ul>
+				<li class="dropdown profile_details_drop">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
+					<div class="mega-dropdown-menu">
+						<div class="w3ls_vegetables">
+							<ul class="dropdown-menu drp-mnu">
+								<li><a href="../login">注销</a></li>
+								<li><a href="../edit">信息修改</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</li>
+
+			</ul>
+
+		</div>
+
+		<div class="account_details">
+		<p>{{ user_name }}</p>
+		<p>￥{{ user_balance }}</p>
+
+		</div>
+
+
+		<div class="clearfix"> </div>
+	</div>
+
+	<script>
+	$(document).ready(function() {
+		 var navoffeset=$(".agileits_header").offset().top;
+		 $(window).scroll(function(){
+			var scrollpos=$(window).scrollTop();
+			if(scrollpos >=navoffeset){
+				$(".agileits_header").addClass("fixed");
+			}else{
+				$(".agileits_header").removeClass("fixed");
+			}
+		 });
+
+	});
+	</script>
+
+
+
+
+	<div class="products-breadcrumb">
+		<div class="container">
+			<ul>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="../..">首页</a><span>|</span></li>
+				<li>提交订单</li>
+			</ul>
+		</div>
+	</div>
+
+
+	<div class="banner">
+
+		<div class="w3l_banner_nav_right">
+
+		<div class="mail">
+			<h3>提交订单</h3>
+
+            {% for fy in foods %}
+                <div class="cart_food">
+                    <div class="food_display">
+                        <h4>名称：</h4>
+                        <p class="name">{{ fy.food_name }}</p>
+                    </div>
+                    <div class="food_display">
+                        <h4>数量：</h4>
+                        <p class="count">{{ fy.count }}</p>
+                    </div>
+                    <div class="food_display">
+                        <h4>总计：</h4>
+                        <p class="part_total">{{ fy.amount }}</p>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+            <p>总数量：</p>
+            <p>{{ total_count }}</p>
+        <p>总金额</p>
+            <p id="total_x">{{ total_price }} </p>
+
+
+            <div>
+                <button id="restaurant">
+                    外卖订餐
+                </button>
+                <button id="cancel">
+                    取消订单
+                </button>
+
+
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+		</div>
+
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+
+
+    <div class="submit_confirm">
+
+
+    </div>
+<script>
+$(document).ready(function(){
+    $(".dropdown").hover(
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $(this).toggleClass('open');
+        },
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $(this).toggleClass('open');
+        }
+    );
+});
+</script>
+
+</body>
+</html>

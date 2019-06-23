@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>菜单</title>
+
+<link  rel="stylesheet"  href="{% static '/css/bootstrap.css' %}" type="text/css" media="all" />
+<link  rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css" media="all" />
+<!-- font-awesome icons -->
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- //font-awesome icons -->
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script>
+$(document).ready(function () {
+    $(".add_cart_button").click(function () {
+        alert('成功加入点菜单！')
+        count = 1;
+        food_name = $(this).attr("data-name")
+        csrf = $('input[name="csrfmiddlewaretoken"]').val()
+        params = {
+            'food_name': food_name,
+            'count': count,
+            'csrfmiddlewaretoken':csrf,
+        }
+        $.post('../cart/add',params,function (data) {
+
+        });
+
+    });
+});
+</script>
+
+
+</head>
+	
+<body>
+{% csrf_token %}
+<!-- header -->
+	<div class="agileits_header">
+		<div class="w3l_offers">
+			<a href="..">GLOTIN</a>
+		</div>
+
+
+		<div class="account">
+			<ul>
+				<li class="dropdown profile_details_drop">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
+					<div class="mega-dropdown-menu">
+						<div class="w3ls_vegetables">
+							<ul class="dropdown-menu drp-mnu">
+								<li><a href="../login">登录&注册</a></li>
+								<li><a href="../edit">信息修改</a></li>
+							</ul>
+						</div>
+
+					</div>
+				</li>
+
+			</ul>
+
+		</div>
+
+		<div class="account_details">
+		<p>{{ user_name }}</p>
+		<p>￥{{ user_balance }}</p>
+
+		</div>
+
+		<div class="w3l_header_right1">
+			<h2><a href="../cart">提交订单</a></h2>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+
+	
+<!-- //header -->
+<!-- products-breadcrumb -->
+	<div class="products-breadcrumb">
+		<div class="container">
+			<ul>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="..">首页</a><span>|</span></li>
+				<li>{{ name }}</li>
+			</ul>
+		</div>
+	</div>
+<!-- //products-breadcrumb -->
+<!-- banner -->
+	<div class="banner">
+		
+
+
+			<div class="w3ls_w3l_banner_nav_right_grid w3ls_w3l_banner_nav_right_grid_sub">
+				<h3 class="w3l_fruit">{{ name }}</h3>
+
+
+				<div class="menu_list_first_row menu_list_first_row_veg">
+				{% for fy in menu %}
+                    <div class="col-md-3 w3ls_w3l_banner_left w3ls_w3l_banner_left_asdfdfd">
+						<div class="hover14 column">
+								<figure>
+									<div class="snipcart-item block">
+										<div class="snipcart-thumb">
+											<a  href="../detail/{{ fy.food_name }}"><img src="{{ fy.food_image }}" alt=" " class="img-responsive" /></a>
+											<div id="food_text" class='menu_list_food_text'>{{ fy.food_name}}</div>
+                                            <div class="snipcart-thumb agileinfo_single_right_snipcart">
+							                    <h4>￥{{ fy.food_price }} </h4>
+						                    </div>
+
+										</div>
+
+                                        <div class="snipcart-details">
+											<button class="add_cart_button" id ="add_cart_add_where" data-id="" data-name="{{ fy.food_name }}" data-summary="0" data-price="{{ fy.food_price }}" data-quantity="1" data-image="{{ fy.food_image }}"  >外卖订餐</button>
+										    </div>
+
+									    </div>
+								</figure>
+
+
+						</div>
+					</div>
+                 {% endfor %}
+
+
+
+					<div class="clearfix"> </div>
+
+				</div>
+
+
+
+	</div>
+<!-- //banner -->
+
+<!-- footer -->
+	<div class="footer">
+		
+			<div class="wthree_footer_copy">
+				<p>天天餐馆竭诚为你服务！感谢您的光临！</p>
+			</div>
+		
+	</div>
+<!-- //footer -->
+<script>
+$(document).ready(function(){
+    $(".dropdown").hover(
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $(this).toggleClass('open');
+        },
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $(this).toggleClass('open');
+        }
+    );
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>登陆界面</title>
+
+<link  rel="stylesheet"  href="{% static '/css/bootstrap.css' %}" type="text/css" media="all" />
+<link  rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css" media="all" />
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all" />
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('#login').click(function () {
+            user_name = $('#user_name').val()
+            password = $('#password').val()
+            csrf = $('input[name="csrfmiddlewaretoken"]').val()
+            params={
+                'user_name':user_name,
+                'password':password,
+                'csrfmiddlewaretoken':csrf,
+
+            }
+
+        });
+    });
+</script>
+
+</head>
+	
+<body>
+{% csrf_token %}
+<!-- products-breadcrumb -->
+	<div class="products-breadcrumb">
+		<div class="container">
+			<ul>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="..">首页</a><span>|</span></li>
+				<li>登录&注册</li>
+			</ul>
+		</div>
+	</div>
+<!-- //products-breadcrumb -->
+<!-- banner -->
+	<div class="banner">
+
+		<div class="w3l_banner_nav_right">
+<!-- login -->
+		<div class="w3_login">
+			<h3>登录&注册</h3>
+			<div class="w3_login_module">
+				<div class="module form-module">
+				  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+					<div class="tooltip">点击这里</div>
+				  </div>
+				  <div class="form">
+					<h2>登录您的账户</h2>
+					<form action="../user_check/" method="post">
+                        {% csrf_token %}
+					  <input type="text" id ="user_name"  name="Username" placeholder="Username" required=" ">
+					  <input type="password" id="password" name="Password" placeholder="Password" required=" ">
+                      <input type='submit' value='登录'>
+                        <p>{{ msg }}</p>
+                        <p>{{ m }}</p>
+                        <p>{{ success }}</p>
+					</form>
+				  </div>
+				  <div class="form">
+					<h2>创建新账户</h2>
+					<form action="../user_add/" method="post">
+                        {% csrf_token %}
+					  <input type="text" name="Username" placeholder="Username" required=" ">
+					  <input type="password" name="Password" placeholder="Password" required=" ">
+                      <input type="text" name="Real_name" placeholder="Real_name" required=" ">
+					  <input type="text" name="Phone" placeholder="Phone Number" required=" ">
+					  <input type="submit" value="注册">
+
+					</form>
+
+			</div>
+			<script>
+				$('.toggle').click(function(){
+				  // Switches the Icon
+				  $(this).children('i').toggleClass('fa-pencil');
+				  // Switches the forms  
+				  $('.form').animate({
+					height: "toggle",
+					'padding-top': 'toggle',
+					'padding-bottom': 'toggle',
+					opacity: "toggle"
+				  }, "slow");
+				});
+			</script>
+		</div>
+<!-- //login -->
+		</div>
+		<div class="clearfix"></div>
+	</div>
+<!-- //banner -->
+
+
+<!-- footer -->
+	<div class="footer">
+		
+			<div class="wthree_footer_copy">
+				<p>天天餐馆竭诚为你服务！感谢您的光临！</p>
+			</div>
+		
+	</div>
+<!-- //footer -->
+
+</body>
+</html>

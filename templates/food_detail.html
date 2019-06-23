@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>菜品页</title>
+
+<link  rel="stylesheet"  href="{% static '/css/bootstrap.css' %}" type="text/css" media="all" />
+<link  rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css" media="all" />
+<!-- font-awesome icons -->
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- //font-awesome icons -->
+<!-- js -->
+<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+<!-- //js -->
+<script>
+$(document).ready(function () {
+    $("#create").hide()
+    $("#order").click(function () {
+        $('#create').show()
+        count = 1
+        food_name = $(this).attr("data-name")
+        csrf = $('input[name="csrfmiddlewaretoken"]').val()
+        params = {
+            'food_name': food_name,
+            'count': count,
+            'csrfmiddlewaretoken':csrf,
+        }
+
+        $.post('../../cart/add',params,function (data) {
+        });
+
+    });
+});
+</script>
+</head>
+	
+<body>
+{% csrf_token %}
+<!-- header -->
+	<div class="agileits_header">
+		<div class="w3l_offers">
+			<a href="../..">GLOTIN</a>
+		</div>
+
+
+		<div class="account">
+			<ul>
+				<li class="dropdown profile_details_drop">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
+					<div class="mega-dropdown-menu">
+						<div class="w3ls_vegetables">
+							<ul class="dropdown-menu drp-mnu">
+								<li><a href="../../login">登录&注册</a></li>
+								<li><a href="../../edit">修改信息</a></li>
+
+							</ul>
+						</div>
+
+					</div>
+				</li>
+
+			</ul>
+
+		</div>
+
+		<div class="account_details">
+		<p>{{ user_name }}</p>
+		<p>￥{{ user_balance }}</p>
+
+		</div>
+
+		<div class="w3l_header_right1">
+			<h2><a href="../../cart">提交订单</a></h2>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+<!-- script-for sticky-nav -->
+	<script>
+	$(document).ready(function() {
+		 var navoffeset=$(".agileits_header").offset().top;
+		 $(window).scroll(function(){
+			var scrollpos=$(window).scrollTop();
+			if(scrollpos >=navoffeset){
+				$(".agileits_header").addClass("fixed");
+			}else{
+				$(".agileits_header").removeClass("fixed");
+			}
+		 });
+
+	});
+	</script>
+<!-- //script-for sticky-nav -->
+
+<!-- //header -->
+<!-- products-breadcrumb -->
+	<div class="products-breadcrumb">
+		<div class="container">
+			<ul>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="..">首页</a><span>|</span></li>
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="../../menu_list">上一页</a><span>|</span></li>
+				<li>口水鸡</li>
+			</ul>
+		</div>
+	</div>
+<!-- //products-breadcrumb -->
+<!-- banner -->
+	<div class="banner">
+
+		<div class="w3l_banner_nav_right">
+
+			<div class="agileinfo_single">
+				<div class="food_detail_name">{{ food_list.food_name }}</div>
+				<div class="col-md-4 agileinfo_single_left">
+					<img id="example" src="{{ food_list.food_image }}" alt=" " class="img-responsive" />
+				</div>
+				<div class="col-md-8 agileinfo_single_right">
+
+					<div class="w3agile_description">
+						<h4>简介:</h4>
+                        <p>{{ food_list.food_description }}</p>
+					</div>
+					<div class="snipcart-item block">
+						<div class="food_detail_price">
+							<h4>￥{{ food_list.food_price }} </h4>
+						</div>
+						<div class="snipcart-details agileinfo_single_right_details">
+							<button class="order" id="order" data-name="{{ food_list.food_name }}">店内订餐</button>
+						</div>
+                        <p id="create">已添加至点菜单中！</p>
+
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+<!-- //banner -->
+
+
+<!-- footer -->
+	<div class="footer">
+		
+			<div class="wthree_footer_copy">
+				<p>天天餐馆竭诚为你服务！感谢您的光临！</p>
+			</div>
+		
+	</div>
+<!-- //footer -->
+<!-- Bootstrap Core JavaScript -->
+
+<script>
+$(document).ready(function(){
+    $(".dropdown").hover(
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $(this).toggleClass('open');
+        },
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $(this).toggleClass('open');
+        }
+    );
+});
+</script>
+
+<!-- //here ends scrolling icon -->
+
+
+</body>
+</html>

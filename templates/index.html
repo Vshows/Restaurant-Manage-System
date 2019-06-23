@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>首页</title>
+
+<link  rel="stylesheet"  href="{% static '/css/bootstrap.css' %}" type="text/css" media="all" />
+<link  rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css" media="all" />
+<!-- font-awesome icons -->
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- //font-awesome icons -->
+<!-- js -->
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+
+<!-- //js -->
+
+</head>
+	
+<body>
+<!-- header -->
+	<div class="agileits_header">
+		<div class="w3l_offers">
+			<a href="">GLOTIN</a>
+		</div>
+
+		
+		<div class="account">
+			<ul>
+				<li class="dropdown profile_details_drop">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
+					<div class="mega-dropdown-menu">
+						<div class="w3ls_vegetables">
+							<ul class="dropdown-menu drp-mnu">
+								<li><a href="logout">注销</a></li>
+								<li><a href="edit">修改信息</a></li>
+
+							</ul>
+						</div>  
+						
+					</div>	
+				</li>
+				
+			</ul>
+			
+		</div>
+		
+		<div class="account_details">
+		<p>{{ user_name }}</p>
+		<p>￥{{ user_balance }}</p>
+		
+		</div>
+	
+		<div class="w3l_header_right1">
+			<h2><a href="cart">提交订单</a></h2>
+		</div>
+		<div class="clearfix"> </div>
+	</div>
+<!-- script-for sticky-nav -->
+
+<!-- //script-for sticky-nav -->
+	<div class="logo_products">
+		<div class="container">
+			<div class="w3ls_logo_products_left">
+				<h1><a href=""><span>Glotin</span> 格朗庭</a></h1>
+			</div>
+			
+			<div class="w3ls_logo_products_left1">
+				<ul class="phone_email">
+					<li><i class="fa fa-phone" aria-hidden="true"></i>(+0101) 1000000</li>
+					<li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="930657665@qq.com">food@qq.com</a></li>
+				</ul>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+<!-- //header -->
+<!-- banner -->
+	<div class="banner">
+		<div class="glotin_index_menu_selector">
+			<nav class="navbar nav_bottom">
+			 <!-- Brand and toggle get grouped for better mobile display -->
+			  <div class="navbar-header nav_2">
+				  <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+			   </div> 
+
+				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+					<ul class="nav navbar-nav nav_1">
+
+                        {% for fy in menu_list %}
+                         <li><a href="menu_list/{{ fy }} ">{{ fy }}</a></li>
+                        {% endfor %}
+
+
+									
+						
+					</ul>
+				 </div><!-- /.navbar-collapse -->
+			</nav>
+		</div>
+		<div class="glotin_index_image">
+			<section class="slider">
+				<div class="flexslider">
+					<ul class="slides">
+						<li>
+							<div class="w3l_banner_nav_right_banner">
+								<h3>北京烤鸭<span>美味</span> </h3>
+								<div class="more">
+									<a href="../glotin/detail/北京烤鸭" class="button--saqui button--round-l button--text-thick" data-text="Shop now">前去订餐</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="w3l_banner_nav_right_banner1">
+								<h3>感受下 <span>螃蟹</span> 的美味！.</h3>
+								<div class="more">
+									<a href="../glotin/detail/香辣蟹" class="button--saqui button--round-l button--text-thick" data-text="Shop now">前去订餐</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="w3l_banner_nav_right_banner2">
+								<h3>口水鸡 <i>您</i> 饿了吗？</h3>
+								<div class="more">
+									<a href="../glotin/detail/口水鸡" class="button--saqui button--round-l button--text-thick" data-text="Shop now">前去订餐</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<!-- flexSlider -->
+				<link rel="stylesheet" href="{% static '/css/flexslider.css' %}" type="text/css" media="screen" property="" />
+				<script defer src="{% static '/js/jquery.flexslider.js' %}/"></script>
+				<script type="text/javascript">
+				$(window).load(function(){
+				  $('.flexslider').flexslider({
+					animation: "slide",
+					start: function(slider){
+					  $('body').removeClass('loading');
+					}
+				  });
+				});
+			  </script>
+			<!-- //flexSlider -->
+		</div>
+		<div class="clearfix"></div>
+	</div>
+<!-- banner -->
+s
+
+
+
+<!-- footer -->
+	<div class="footer">
+		
+			
+			
+			
+			
+			
+			<div class="wthree_footer_copy">
+				<p>天天餐馆竭诚为你服务！感谢您的光临！ </p>
+			</div>
+		
+	</div>
+<!-- //footer -->
+<!-- Bootstrap Core JavaScript -->
+<script>
+$(document).ready(function(){
+    $(".dropdown").hover(
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $(this).toggleClass('open');
+        },
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $(this).toggleClass('open');
+        }
+    );
+});
+</script>
+
+</body>
+</html>
